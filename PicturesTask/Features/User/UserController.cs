@@ -17,13 +17,13 @@ namespace PicturesTask.Features.User
             _mediator = mediator;
         }
 
-        [HttpPost("user/new")]
+        [HttpPost("/new")]
         public async Task<IdentityResult> CreateNew([FromBody]CoreUser user)
         {
             return await _mediator.Send(new CreateNew.Command(user));
         }
 
-        [HttpPost("user/sign")]
+        [HttpPost("/sign")]
         public async Task<HttpStatusCode> SignIn(string login, string password)
         {
             return await _mediator.Send(new SignIn.Command(login, password));
