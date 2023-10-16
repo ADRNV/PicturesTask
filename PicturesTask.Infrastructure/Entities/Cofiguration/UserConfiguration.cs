@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PicturesTask.Infrastructure.Entities.Cofiguration
 {
@@ -19,6 +14,25 @@ namespace PicturesTask.Infrastructure.Entities.Cofiguration
 
             builder.HasMany(u => u.Images)
                 .WithOne(u => u.User);
+
+            builder.HasMany(u => u.Invations)
+                .WithOne(u => u.From);
+
+            builder.HasData(
+                new EntityUser
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    UserName = "User",
+                    NormalizedUserName = "USER",
+                    PasswordHash = "AQAAAAIAAYagAAAAEJnbSpz4UNKDnq+KMzOiivLwPovhKV3SwHz8w95dQwvQWKbmo5yZa4NKTSpf8U6Muw=="
+                },
+                new EntityUser
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    UserName = "User2",
+                    NormalizedUserName = "USER2",
+                    PasswordHash = "AQAAAAIAAYagAAAAEJnbSpz4UNKDnq+KMzOiivLwPovhKV3SwHz8w95dQwvQWKbmo5yZa4NKTSpf8U6Muw=="
+                });
         }
     }
 }

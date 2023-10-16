@@ -7,5 +7,7 @@ namespace PicturesTask.Infrastructure.Entities
         public List<Friend> Friends { get; set; }
 
         public List<Image> Images { get; set; }
+
+        public List<Invation> Invations { get; set; }
     }
 }
