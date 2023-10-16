@@ -16,6 +16,9 @@ namespace PicturesTask.Infrastructure.Entities.Cofiguration
 
             builder.HasMany(u => u.Friends)
                 .WithMany(f => f.Users);
+
+            builder.HasMany(u => u.Images)
+                .WithOne(u => u.User);
         }
     }
 }
