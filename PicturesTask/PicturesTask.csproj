@@ -23,6 +23,12 @@
   </ItemGroup>
 
   <ItemGroup>
+		<Using Include="PicturesTask.Infrastructure.Entities.Invation">
+			<Alias>EntityInvation</Alias>
+		</Using>
+		<Using Include="PicturesTask.Core.Models.Invation">
+			<Alias>CoreInvation</Alias>
+		</Using>
     <Using Include="PicturesTask.Core.Models.User">
       <Alias>CoreUser</Alias>
     </Using>

@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using PicturesTask.Core.Models;
+using PicturesTask.Core.Repositories;
 using PicturesTask.Infrastructure;
 using PicturesTask.Infrastructure.Entities;
 using PicturesTask.Infrastructure.Entities.MappingConfigurations;
+using PicturesTask.Infrastructure.Repositories;
 using PicturesTask.Middlewares;
 using System.Reflection;
 
@@ -39,10 +41,15 @@ namespace PicturesTask
 
             services.AddScoped<SignInManager<EntityUser>>();
 
+            services.AddSingleton<IPasswordHasher<EntityUser>, PasswordHasher<EntityUser>>();
+
+            services.AddScoped<InvitionsRepository>();
+
             services.AddAutoMapper(c =>
             {
                 c.AddProfile<UserMappingConfiguration>();
                 c.AddProfile<FriendMappingConfiguration>();
+                c.AddProfile<InvationConfiguration>();
             });
 
             services.AddMediatR(Assembly.GetExecutingAssembly());
@@ -69,8 +76,11 @@ namespace PicturesTask
             using (var scope =
                         app.ApplicationServices.CreateScope())
             using (var context = scope.ServiceProvider.GetService<UsersContext>())
+            {
+                context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
-
+            }
+               
             app.UseSwagger();
 
             app.UseSwaggerUI();

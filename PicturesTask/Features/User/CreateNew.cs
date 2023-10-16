@@ -39,7 +39,9 @@ namespace PicturesTask.Features.User
                 }
                 else
                 {
-                    user = _mapper.Map<EntityUser>(request.User);   
+                    user = _mapper.Map<EntityUser>(request.User);
+
+                    user.PasswordHash = _passwordHasher.HashPassword(user, request.User.Password);
 
                     return await _signInManager.UserManager.CreateAsync(user);
                 }
