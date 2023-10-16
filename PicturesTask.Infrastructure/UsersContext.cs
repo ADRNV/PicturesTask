@@ -7,6 +7,8 @@ namespace PicturesTask.Infrastructure
 {
     public class UsersContext : IdentityDbContext<User>
     {
+        public DbSet<Image> Images { get; set; }
+
         public UsersContext(DbContextOptions<UsersContext> options) : base(options)
         { 
         }
