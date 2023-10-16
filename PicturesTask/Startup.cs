@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using PicturesTask.Core.Models;
 using PicturesTask.Infrastructure;
 using PicturesTask.Infrastructure.Entities;
+using PicturesTask.Infrastructure.Entities.MappingConfigurations;
 using PicturesTask.Middlewares;
 using System.Reflection;
 
@@ -23,7 +26,7 @@ namespace PicturesTask
             {
                 options.UseSqlServer(_configuration.GetConnectionString("IdentityDbConnection"));
             })
-                .AddDefaultIdentity<User>(options =>
+                .AddDefaultIdentity<EntityUser>(options =>
                 {
                     options.SignIn.RequireConfirmedAccount = false;
                     options.Password.RequireDigit = false;
@@ -31,6 +34,18 @@ namespace PicturesTask
                     options.SignIn.RequireConfirmedEmail = false;
                 })
                 .AddEntityFrameworkStores<UsersContext>();
+
+            services.AddScoped<UserManager<EntityUser>>();
+
+            services.AddScoped<SignInManager<EntityUser>>();
+
+            services.AddAutoMapper(c =>
+            {
+                c.AddProfile<UserMappingConfiguration>();
+                c.AddProfile<FriendMappingConfiguration>();
+            });
+
+            services.AddMediatR(Assembly.GetExecutingAssembly());
 
             services.AddSwaggerGen(c =>
             {

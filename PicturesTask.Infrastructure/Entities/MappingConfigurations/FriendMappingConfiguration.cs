@@ -2,9 +2,9 @@
 
 namespace PicturesTask.Infrastructure.Entities.MappingConfigurations
 {
-    public class FriendsMappingConfiguration : Profile
+    public class FriendMappingConfiguration : Profile
     {
-        public FriendsMappingConfiguration()
+        public FriendMappingConfiguration()
         {
             CreateMap<EntityFriend, CoreFriend>();
         }
