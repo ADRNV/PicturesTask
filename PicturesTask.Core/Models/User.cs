@@ -10,6 +10,6 @@
 
         public string Password { get; set; }
 
-        public 
+        public List<Friend> Friends { get; set; }
     }
 }
