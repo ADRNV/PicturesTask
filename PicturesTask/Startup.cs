@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using PicturesTask.Infrastructure;
 using PicturesTask.Infrastructure.Entities;
 using PicturesTask.Middlewares;
+using System.Reflection;
 
 namespace PicturesTask
 {
@@ -29,6 +31,18 @@ namespace PicturesTask
                     options.SignIn.RequireConfirmedEmail = false;
                 })
                 .AddEntityFrameworkStores<UsersContext>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SupportNonNullableReferenceTypes();
+
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "PicturesSharing API", Version = "v1" });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+                c.IncludeXmlComments(xmlPath);
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

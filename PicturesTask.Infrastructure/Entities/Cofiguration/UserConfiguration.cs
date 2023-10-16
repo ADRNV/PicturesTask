@@ -14,7 +14,8 @@ namespace PicturesTask.Infrastructure.Entities.Cofiguration
         {
             builder.HasKey(x => x.Id);
 
-            builder.H
+            builder.HasMany(u => u.Friends)
+                .WithMany(f => f.Users);
         }
     }
 }

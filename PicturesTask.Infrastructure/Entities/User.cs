@@ -4,6 +4,6 @@ namespace PicturesTask.Infrastructure.Entities
 {
     public class User : IdentityUser
     {
-        public List<User> Friends { get; set; }
+        public List<Friend> Friends { get; set; }
     }
 }
