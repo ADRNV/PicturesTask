@@ -45,6 +45,8 @@ namespace PicturesTask
 
             services.AddScoped<InvitionsRepository>();
 
+            services.AddScoped<IRepository<CoreFriend>, FriendsRepository>();
+
             services.AddAutoMapper(c =>
             {
                 c.AddProfile<UserMappingConfiguration>();

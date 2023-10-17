@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Reflection.Emit;
 
 namespace PicturesTask.Infrastructure.Entities.Cofiguration
 {
@@ -8,9 +9,6 @@ namespace PicturesTask.Infrastructure.Entities.Cofiguration
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(x => x.Id);
-
-            builder.HasMany(u => u.Friends)
-                .WithMany(f => f.Users);
 
             builder.HasMany(u => u.Images)
                 .WithOne(u => u.User);

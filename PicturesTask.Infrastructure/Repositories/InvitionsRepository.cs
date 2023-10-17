@@ -43,6 +43,7 @@ namespace PicturesTask.Infrastructure.Repositories
             var invations = _usersContext.Invations
                .AsNoTracking()
                .Include(e => e.From)
+               .Include(e => e.To)
                .Skip((page - 1) * size)
                .Take(size)
                .AsEnumerable()
@@ -60,9 +61,36 @@ namespace PicturesTask.Infrastructure.Repositories
             return MapToCore(invation);
         }
 
+        public async Task<CoreInvation> Get(string userName, string id)
+        {
+            var user = await _usersContext.Users.FirstOrDefaultAsync(u => u.UserName == userName);
+
+            var invation = await _usersContext.Invations
+                .Include(e => e.To)
+                .Include(e => e.From)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(f => f.Id == id || f.From.Id == user.Id);
+
+            return new CoreInvation() {
+                From = invation.From.UserName,
+                To = user.UserName, 
+                Accepted = invation.Accepted,
+                Id = id
+            };
+        }
+
         public override async Task Update(CoreInvation enttity)
         {
-            var dbInvation = MapToEntity(enttity);
+            var fromUser = await _usersContext.Users.FirstOrDefaultAsync(u => u.UserName == enttity.From);
+
+            var toUser = await _usersContext.Users.FirstOrDefaultAsync(u => u.UserName == enttity.To);
+
+            var dbInvation = new EntityInvation() {
+                Id = Guid.NewGuid().ToString(),
+                From = fromUser, 
+                To = toUser,
+                Accepted = enttity.Accepted
+            };
 
             _usersContext.Invations.Update(dbInvation);
 

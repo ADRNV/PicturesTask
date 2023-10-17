@@ -24,7 +24,7 @@ namespace PicturesTask.Infrastructure.Repositories
         {
             _usersContext.Entry(entity).State = entityState;
 
-            await _usersContext.SaveChangesAsync();
+            _usersContext.SaveChangesAsync();
         }
     }
 }

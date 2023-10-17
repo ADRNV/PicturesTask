@@ -49,5 +49,13 @@ namespace PicturesTask.Features.User
 
             return await _mediator.Send(new GetInvations.Command(userName, page, size));
         }
+
+        [HttpPut("invites/handle/{id}")]
+        public async Task<CoreInvation> Handle([FromRoute]Guid id, [FromQuery]bool accept)
+        {
+            var userName = this.User.Identity.Name;
+
+            return await _mediator.Send(new HandleInvion.Command(userName, id, accept));
+        }
     }
 }

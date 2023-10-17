@@ -2,10 +2,10 @@
 {
     public class Friend
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
-        public Guid UserId { get; set; }
+        public string User1 { get; set; }
 
-        public Guid FriedId { get; set; }
+        public string User2 { get; set; }
     }
 }
