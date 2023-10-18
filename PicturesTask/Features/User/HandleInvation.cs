@@ -10,7 +10,7 @@ namespace PicturesTask.Features.User
 {
     public class HandleInvion
     {
-        public record Command(string UserName, Guid Id,bool Accept) : IRequest<CoreInvation>;
+        public record Command(string UserName, Guid Id, bool Accept) : IRequest<CoreInvation>;
 
         public class Handler : IRequestHandler<Command, CoreInvation>
         {

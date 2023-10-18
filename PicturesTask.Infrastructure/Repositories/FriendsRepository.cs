@@ -18,7 +18,7 @@ namespace PicturesTask.Infrastructure.Repositories
             var dbFriend = MapToEntity(enttity);
 
             await _usersContext.AddAsync(dbFriend);
-
+            
             await Save(dbFriend, EntityState.Added);
         }
 
@@ -26,7 +26,6 @@ namespace PicturesTask.Infrastructure.Repositories
         {
             var friends = _usersContext.Friends
                 .AsNoTracking()
-                .Include(e => e.Users)
                 .Skip((page - 1) * size)
                 .Take(size)
                 .AsEnumerable();

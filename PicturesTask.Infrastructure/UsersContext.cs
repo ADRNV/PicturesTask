@@ -20,9 +20,11 @@ namespace PicturesTask.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new InviteConfiguration());
-            base.OnModelCreating(builder);
+            builder.ApplyConfiguration(new FriendsConfiguration());
+            
         }
     }
 }

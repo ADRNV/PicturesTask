@@ -86,7 +86,7 @@ namespace PicturesTask.Infrastructure.Repositories
             var toUser = await _usersContext.Users.FirstOrDefaultAsync(u => u.UserName == enttity.To);
 
             var dbInvation = new EntityInvation() {
-                Id = Guid.NewGuid().ToString(),
+                Id = enttity.Id,
                 From = fromUser, 
                 To = toUser,
                 Accepted = enttity.Accepted
