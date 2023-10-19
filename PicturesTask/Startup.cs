@@ -47,11 +47,14 @@ namespace PicturesTask
 
             services.AddScoped<IRepository<CoreFriend>, FriendsRepository>();
 
+            services.AddScoped<IImagesRepository,  ImagesRepository>();
+
             services.AddAutoMapper(c =>
             {
                 c.AddProfile<UserMappingConfiguration>();
                 c.AddProfile<FriendMappingConfiguration>();
                 c.AddProfile<InvationConfiguration>();
+                c.AddProfile<ImageMappingConfiguration>();
             });
 
             services.AddMediatR(Assembly.GetExecutingAssembly());

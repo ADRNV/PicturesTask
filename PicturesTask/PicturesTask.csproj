@@ -23,6 +23,12 @@
   </ItemGroup>
 
   <ItemGroup>
+		<Using Include="PicturesTask.Core.Models.Image">
+			<Alias>CoreImage</Alias>
+		</Using>
+		<Using Include="PicturesTask.Infrastructure.Entities.Image">
+			<Alias>EntityImage</Alias>
+		</Using>
 		<Using Include="PicturesTask.Core.Models.Friend">
 		  <Alias>CoreFriend</Alias>
 		</Using>
