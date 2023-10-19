@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using PicturesTask.Core.Repositories;
 
 namespace PicturesTask.Infrastructure.Repositories
@@ -7,9 +8,13 @@ namespace PicturesTask.Infrastructure.Repositories
     {
         protected UsersContext _usersContext;
         
-        public RepositoryBase(UsersContext usersContext)
+        protected readonly IMapper _mapper;
+
+        public RepositoryBase(UsersContext usersContext, IMapper mapper)
         {
             _usersContext = usersContext;
+
+            _mapper = mapper;
         }
 
         public abstract Task Create(T enttity);
@@ -26,5 +31,11 @@ namespace PicturesTask.Infrastructure.Repositories
 
             await _usersContext.SaveChangesAsync();
         }
+
+        protected D MapToEntity<D>(T invation) =>
+         _mapper.Map<T, D>(invation);
+
+        protected T MapToCore<D>(D invation) =>
+            _mapper.Map<D, T>(invation);
     }
 }

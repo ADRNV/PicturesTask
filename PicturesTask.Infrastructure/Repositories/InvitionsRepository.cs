@@ -5,13 +5,9 @@ namespace PicturesTask.Infrastructure.Repositories
 {
     public class InvitionsRepository : RepositoryBase<CoreInvation>
     {
-        private readonly IMapper _mapper;
-
-        public InvitionsRepository(UsersContext usersContext, IMapper mapper) : base(usersContext)
+        public InvitionsRepository(UsersContext usersContext, IMapper mapper) : base(usersContext, mapper)
         {
-            _mapper = mapper;
         }
-
         public async Task Create(EntityUser entityUserFrom, EntityUser entityUserTo)
         {
             var dbInvation = new EntityInvation

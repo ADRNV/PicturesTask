@@ -6,17 +6,14 @@ namespace PicturesTask.Infrastructure.Repositories
 {
     public class FriendsRepository : RepositoryBase<CoreFriend>
     {
-        private readonly IMapper _mapper;
-
-        public FriendsRepository(UsersContext context, IMapper mapper) : base(context)
+        public FriendsRepository(UsersContext context, IMapper mapper) : base(context, mapper)
         { 
-            _mapper = mapper;
         }
 
         public override async Task Create(CoreFriend enttity)
         {
             var dbFriend = MapToEntity(enttity);
-
+           
             await _usersContext.AddAsync(dbFriend);
             
             await Save(dbFriend, EntityState.Added);
