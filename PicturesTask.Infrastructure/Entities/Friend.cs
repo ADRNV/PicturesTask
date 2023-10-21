@@ -8,6 +8,6 @@
 
         public string User2 { get; set; }
 
-        public List<User> Users { get; set; }
+        public List<User> Users { get; set; } = new();
     }
 }

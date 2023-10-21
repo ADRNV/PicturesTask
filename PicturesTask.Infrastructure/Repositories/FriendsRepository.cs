@@ -13,6 +13,10 @@ namespace PicturesTask.Infrastructure.Repositories
         public override async Task Create(CoreFriend enttity)
         {
             var dbFriend = MapToEntity(enttity);
+
+            var user = await _usersContext.Users.FirstAsync(u => u.UserName == enttity.User2);
+
+            user.Friends.Add(dbFriend);
            
             await _usersContext.AddAsync(dbFriend);
             

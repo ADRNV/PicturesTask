@@ -36,6 +36,7 @@ namespace PicturesTask.Infrastructure.Repositories
         {
             var image = await _usersContext.Images
                 .Include(i => i.User)
+                .Include(i => i.User.Friends)
                 .Where(i => i.Id == id)
                 .FirstAsync();
 
@@ -51,7 +52,7 @@ namespace PicturesTask.Infrastructure.Repositories
             }
             else
             {
-                if(image.User.Friends.Where(f => f.User1 == user.UserName).Count() != 0)
+                if(image.User.Friends.Where(f => f.User2 == user.UserName).Count() != 0)
                 {
                     return MapToCore(image);
                 }

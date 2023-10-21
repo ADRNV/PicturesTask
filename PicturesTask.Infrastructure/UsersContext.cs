@@ -21,9 +21,14 @@ namespace PicturesTask.Infrastructure
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<User>()
+                .HasMany(u => u.Friends)
+                .WithMany(u => u.Users);
+
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new InviteConfiguration());
-            builder.ApplyConfiguration(new FriendsConfiguration());
+            //builder.ApplyConfiguration(new FriendsConfiguration());
             
         }
     }

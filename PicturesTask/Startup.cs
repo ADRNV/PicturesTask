@@ -82,7 +82,6 @@ namespace PicturesTask
                         app.ApplicationServices.CreateScope())
             using (var context = scope.ServiceProvider.GetService<UsersContext>())
             {
-                context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
             }
                
