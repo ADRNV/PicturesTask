@@ -8,7 +8,7 @@ namespace PicturesTask.Features.User
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Policy = "User")]
     public class UserController : ControllerBase
     {
         private IMediator _mediator;
@@ -30,6 +30,14 @@ namespace PicturesTask.Features.User
         public async Task<HttpStatusCode> SignIn(string login, string password)
         {
             return await _mediator.Send(new SignIn.Command(login, password));
+        }
+
+        [HttpPost("/signout")]
+        [AllowAnonymous]
+        public async Task<HttpStatusCode> SignOut()
+        {
+            await _mediator.Send(new SignOut.Command());
+            return HttpStatusCode.OK;
         }
 
         [HttpPost("/dropinvite/to/{to}")]

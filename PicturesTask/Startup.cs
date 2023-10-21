@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -9,6 +10,7 @@ using PicturesTask.Infrastructure.Repositories;
 using PicturesTask.Infrastructure.Repositories.Options;
 using PicturesTask.Middlewares;
 using System.Reflection;
+using System.Security.Claims;
 
 namespace PicturesTask
 {
@@ -35,6 +37,8 @@ namespace PicturesTask
                     options.SignIn.RequireConfirmedEmail = false;
                 })
                 .AddEntityFrameworkStores<UsersContext>();
+
+            services.AddAuthentication();
 
             services.AddScoped<UserManager<EntityUser>>();
 
@@ -74,12 +78,18 @@ namespace PicturesTask
 
                 c.IncludeXmlComments(xmlPath);
             });
+
+            services.AddAuthorization(c =>
+            {
+                c.AddPolicy("User", buider =>
+                {
+                    buider.RequireAuthenticatedUser();
+                });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseAuthentication();
-
             app.UseRouting();
 
             using (var scope =
@@ -94,6 +104,8 @@ namespace PicturesTask
             app.UseSwaggerUI();
 
             app.UseMiddleware<ErrorHandlingMiddleware>();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

@@ -1,10 +1,12 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PicturesTask.Features.Images
 {
     [ApiController]
     [Route("api/user/[controller]")]
+    [Authorize(Policy = "User")]
     public class ImagesController : ControllerBase
     {
         public readonly IMediator _mediator;
