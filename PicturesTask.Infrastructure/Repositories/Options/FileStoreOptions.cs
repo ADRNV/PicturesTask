@@ -1,4 +1,4 @@
-﻿namespace PicturesTask.Infrastructure.Repositories
+﻿namespace PicturesTask.Infrastructure.Repositories.Options
 {
     public class FileStoreOptions
     {

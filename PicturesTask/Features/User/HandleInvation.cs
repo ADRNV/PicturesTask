@@ -32,17 +32,18 @@ namespace PicturesTask.Features.User
             public async Task<CoreInvation> Handle(Command request, CancellationToken cancellationToken)
             {
                 var invite = await _invitesRepository.Get(request.UserName, request.Id.ToString()) ?? throw new RestException(HttpStatusCode.NotFound);
-                
+
                 invite.Accepted = request.Accept;
 
                 await _invitesRepository.Update(invite);
 
-                if(invite.Accepted)
+                if (invite.Accepted)
                 {
-                    await _friendsRepository.Create(new Friend {
+                    await _friendsRepository.Create(new Friend
+                    {
                         User1 = invite.From,
                         User2 = invite.To,
-                    });   
+                    });
                 }
 
                 return invite;

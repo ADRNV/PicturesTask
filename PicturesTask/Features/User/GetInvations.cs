@@ -18,7 +18,7 @@ namespace PicturesTask.Features.User
 
             public Task<IEnumerable<CoreInvation>> Handle(Command request, CancellationToken cancellationToken)
             {
-               return _invitionsRepository.Get(request.UserName, request.Page, request.Size);
+                return _invitionsRepository.Get(request.UserName, request.Page, request.Size);
             }
         }
 

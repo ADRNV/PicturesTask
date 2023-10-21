@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using PicturesTask.Infrastructure.Entities;
 using PicturesTask.Infrastructure.Entities.Cofiguration;
-using PicturesTask.Infrastructure.Entities.MappingConfigurations;
 
 namespace PicturesTask.Infrastructure
 {
@@ -15,7 +14,7 @@ namespace PicturesTask.Infrastructure
         public DbSet<Invation> Invations { get; set; }
 
         public UsersContext(DbContextOptions<UsersContext> options) : base(options)
-        { 
+        {
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -29,7 +28,7 @@ namespace PicturesTask.Infrastructure
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new InviteConfiguration());
             //builder.ApplyConfiguration(new FriendsConfiguration());
-            
+
         }
     }
 }

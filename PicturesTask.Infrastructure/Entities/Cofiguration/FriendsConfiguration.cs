@@ -7,7 +7,7 @@ namespace PicturesTask.Infrastructure.Entities.Cofiguration
     {
         public void Configure(EntityTypeBuilder<EntityFriend> builder)
         {
-            
+
         }
     }
 }

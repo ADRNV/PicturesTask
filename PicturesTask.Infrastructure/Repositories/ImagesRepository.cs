@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using PicturesTask.Core.Models;
 using PicturesTask.Core.Repositories;
-using Microsoft.EntityFrameworkCore;
-using System.IO;
+using PicturesTask.Infrastructure.Repositories.Options;
 using System.Drawing.Imaging;
 
 namespace PicturesTask.Infrastructure.Repositories
@@ -22,7 +22,8 @@ namespace PicturesTask.Infrastructure.Repositories
 
             var path = $@"{_fileStoreOptions.PathToSave}\{userName}_{id}.jpeg";
 
-            var dbImage = new EntityImage {
+            var dbImage = new EntityImage
+            {
                 Path = path,
                 Id = id,
             };
@@ -36,7 +37,7 @@ namespace PicturesTask.Infrastructure.Repositories
             var img = System.Drawing.Image.FromStream(imageFile);
 
             img.Save(path, ImageFormat.Jpeg);
-            
+
             return Guid.Parse(dbImage.Id);
         }
 
@@ -71,7 +72,7 @@ namespace PicturesTask.Infrastructure.Repositories
             }
             else
             {
-                if(image.User.Friends.Where(f => f.User1 == user.UserName).Count() != 0)
+                if (image.User.Friends.Where(f => f.User1 == user.UserName).Count() != 0)
                 {
                     return imageFile;
                 }
@@ -81,7 +82,7 @@ namespace PicturesTask.Infrastructure.Repositories
                 }
             }
 
-                      
+
         }
 
         public override Task<IEnumerable<Image>> Get(int page, int size)

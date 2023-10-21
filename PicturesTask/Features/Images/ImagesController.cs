@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata;
 
 namespace PicturesTask.Features.Images
 {
@@ -16,7 +15,7 @@ namespace PicturesTask.Features.Images
         }
 
         [HttpGet("get/{id}")]
-        public async Task<IActionResult> GetImage([FromRoute]Guid id, string userName)
+        public async Task<IActionResult> GetImage([FromRoute] Guid id, string userName)
         {
             var image = await _mediator.Send(new GetImage.Command(id, userName));
 

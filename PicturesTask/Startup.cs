@@ -2,12 +2,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using PicturesTask.Core.Models;
 using PicturesTask.Core.Repositories;
 using PicturesTask.Infrastructure;
-using PicturesTask.Infrastructure.Entities;
 using PicturesTask.Infrastructure.Entities.MappingConfigurations;
 using PicturesTask.Infrastructure.Repositories;
+using PicturesTask.Infrastructure.Repositories.Options;
 using PicturesTask.Middlewares;
 using System.Reflection;
 
@@ -47,12 +46,12 @@ namespace PicturesTask
 
             services.AddScoped<IRepository<CoreFriend>, FriendsRepository>();
 
-            var c = _configuration.GetSection("FileStoreOptions")
-                .Get<FileStoreOptions>();
 
-            services.AddSingleton<FileStoreOptions>(c);
+            services.AddSingleton<FileStoreOptions>(
+                _configuration.GetSection("FileStoreOptions")
+                .Get<FileStoreOptions>()!);
 
-            services.AddScoped<IImagesRepository,  ImagesRepository>();
+            services.AddScoped<IImagesRepository, ImagesRepository>();
 
             services.AddAutoMapper(c =>
             {
@@ -89,7 +88,7 @@ namespace PicturesTask
             {
                 context.Database.EnsureCreated();
             }
-               
+
             app.UseSwagger();
 
             app.UseSwaggerUI();

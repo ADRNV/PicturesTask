@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using PicturesTask.Infrastructure.Entities;
 
 namespace PicturesTask.Infrastructure.Repositories
 {
     public class FriendsRepository : RepositoryBase<CoreFriend>
     {
         public FriendsRepository(UsersContext context, IMapper mapper) : base(context, mapper)
-        { 
+        {
         }
 
         public override async Task Create(CoreFriend enttity)
@@ -17,9 +16,9 @@ namespace PicturesTask.Infrastructure.Repositories
             var user = await _usersContext.Users.FirstAsync(u => u.UserName == enttity.User2);
 
             user.Friends.Add(dbFriend);
-           
+
             await _usersContext.AddAsync(dbFriend);
-            
+
             await Save(dbFriend, EntityState.Added);
         }
 
@@ -41,7 +40,7 @@ namespace PicturesTask.Infrastructure.Repositories
                 .FirstOrDefaultAsync(f => f.Id == id);
 
             return MapToCore(friend);
-        }    
+        }
 
         public override async Task Update(CoreFriend enttity)
         {

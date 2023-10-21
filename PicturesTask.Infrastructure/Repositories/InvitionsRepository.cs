@@ -67,9 +67,10 @@ namespace PicturesTask.Infrastructure.Repositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync(f => f.Id == id || f.From.Id == user.Id);
 
-            return new CoreInvation() {
+            return new CoreInvation()
+            {
                 From = invation.From.UserName,
-                To = user.UserName, 
+                To = user.UserName,
                 Accepted = invation.Accepted,
                 Id = id
             };
@@ -81,9 +82,10 @@ namespace PicturesTask.Infrastructure.Repositories
 
             var toUser = await _usersContext.Users.FirstOrDefaultAsync(u => u.UserName == enttity.To);
 
-            var dbInvation = new EntityInvation() {
+            var dbInvation = new EntityInvation()
+            {
                 Id = enttity.Id,
-                From = fromUser, 
+                From = fromUser,
                 To = toUser,
                 Accepted = enttity.Accepted
             };

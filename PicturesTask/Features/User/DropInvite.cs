@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using PicturesTask.Core.Repositories;
 using PicturesTask.Infrastructure.Repositories;
 using PicturesTask.Models;
 using System.Net;

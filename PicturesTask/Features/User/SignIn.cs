@@ -27,7 +27,7 @@ namespace PicturesTask.Features.User
 
                 var userExists = user is not null;
 
-                if(userExists)
+                if (userExists)
                 {
                     await _signInManager.PasswordSignInAsync(user, request.Password, true, false);
 

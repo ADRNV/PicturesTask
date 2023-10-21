@@ -1,10 +1,8 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using System.Security.Claims;
 
 namespace PicturesTask.Features.User
 {
@@ -22,7 +20,7 @@ namespace PicturesTask.Features.User
 
         [HttpPost("/new")]
         [AllowAnonymous]
-        public async Task<IdentityResult> CreateNew([FromBody]CoreUser user)
+        public async Task<IdentityResult> CreateNew([FromBody] CoreUser user)
         {
             return await _mediator.Send(new CreateNew.Command(user));
         }
@@ -35,7 +33,7 @@ namespace PicturesTask.Features.User
         }
 
         [HttpPost("/dropinvite/to/{to}")]
-        public async Task<CoreUser> DropInvite([FromRoute]string to)
+        public async Task<CoreUser> DropInvite([FromRoute] string to)
         {
             var fromUser = this.User.Identity.Name;
 
@@ -51,7 +49,7 @@ namespace PicturesTask.Features.User
         }
 
         [HttpPut("invites/handle/{id}")]
-        public async Task<CoreInvation> Handle([FromRoute]Guid id, [FromQuery]bool accept)
+        public async Task<CoreInvation> Handle([FromRoute] Guid id, [FromQuery] bool accept)
         {
             var userName = this.User.Identity.Name;
 
