@@ -21,8 +21,10 @@ namespace PicturesTask.Features.Images
         }
 
         [HttpPost("create")]
-        public async Task<Guid> CreateImage([FromBody]CoreImage image,[FromQuery]string userName)
+        public async Task<Guid> CreateImage([FromBody]CoreImage image)
         {
+            var userName = this.User.Identity.Name;
+
             return await _mediator.Send(new CreateImage.Command(image, userName));
         }
     }
