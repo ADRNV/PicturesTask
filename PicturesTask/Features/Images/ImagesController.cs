@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata;
 
 namespace PicturesTask.Features.Images
 {
@@ -21,11 +22,11 @@ namespace PicturesTask.Features.Images
         }
 
         [HttpPost("create")]
-        public async Task<Guid> CreateImage([FromBody]CoreImage image)
+        public async Task<Guid> CreateImage(IFormFile imageFile)
         {
             var userName = this.User.Identity.Name;
 
-            return await _mediator.Send(new CreateImage.Command(image, userName));
+            return await _mediator.Send(new CreateImage.Command(userName, imageFile));
         }
     }
 }

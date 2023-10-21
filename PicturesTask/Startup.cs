@@ -47,6 +47,11 @@ namespace PicturesTask
 
             services.AddScoped<IRepository<CoreFriend>, FriendsRepository>();
 
+            var c = _configuration.GetSection("FileStoreOptions")
+                .Get<FileStoreOptions>();
+
+            services.AddSingleton<FileStoreOptions>(c);
+
             services.AddScoped<IImagesRepository,  ImagesRepository>();
 
             services.AddAutoMapper(c =>

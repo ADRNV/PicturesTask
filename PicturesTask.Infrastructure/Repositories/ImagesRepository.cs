@@ -2,17 +2,30 @@
 using PicturesTask.Core.Models;
 using PicturesTask.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
+using System.Drawing.Imaging;
 
 namespace PicturesTask.Infrastructure.Repositories
 {
     public class ImagesRepository : RepositoryBase<CoreImage>, IImagesRepository
     {
-        public ImagesRepository(UsersContext usersContext, IMapper mapper) : base(usersContext, mapper)
+        private readonly FileStoreOptions _fileStoreOptions;
+
+        public ImagesRepository(UsersContext usersContext, IMapper mapper, FileStoreOptions fileStoreOptions) : base(usersContext, mapper)
         {
+            _fileStoreOptions = fileStoreOptions;
         }
-        public async Task<Guid> Create(CoreImage image, string userName)
+
+        public async Task<Guid> Create(string userName, MemoryStream imageFile)
         {
-            var dbImage = MapToEntity<EntityImage>(image);
+            var id = Guid.NewGuid().ToString();
+
+            var path = $@"{_fileStoreOptions.PathToSave}\{userName}_{id}.jpeg";
+
+            var dbImage = new EntityImage {
+                Path = path,
+                Id = id,
+            };
 
             dbImage.User = await _usersContext.Users.FirstOrDefaultAsync(u => u.UserName == userName);
 
@@ -20,6 +33,10 @@ namespace PicturesTask.Infrastructure.Repositories
 
             await Save(dbImage, EntityState.Added);
 
+            var img = System.Drawing.Image.FromStream(imageFile);
+
+            img.Save(path, ImageFormat.Jpeg);
+            
             return Guid.Parse(dbImage.Id);
         }
 

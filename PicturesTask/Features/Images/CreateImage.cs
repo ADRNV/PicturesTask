@@ -5,7 +5,7 @@ namespace PicturesTask.Features.Images
 {
     public class CreateImage
     {
-        public record Command(CoreImage Image, string UserName) : IRequest<Guid>;
+        public record Command(string UserName, IFormFile ImageFile) : IRequest<Guid>;
 
         public class Handler : IRequestHandler<Command, Guid>
         {
@@ -16,9 +16,13 @@ namespace PicturesTask.Features.Images
                 _imagesRepository = imagesRepository;
             }
 
-            public Task<Guid> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Guid> Handle(Command request, CancellationToken cancellationToken)
             {
-                return _imagesRepository.Create(request.Image, request.UserName);
+                using var stream = new MemoryStream();
+
+                await request.ImageFile.CopyToAsync(stream);
+
+                return await _imagesRepository.Create(request.UserName, stream);
             }
         }
     }
