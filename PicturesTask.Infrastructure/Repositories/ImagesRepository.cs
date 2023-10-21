@@ -52,7 +52,7 @@ namespace PicturesTask.Infrastructure.Repositories
             }
             else
             {
-                if(image.User.Friends.Where(f => f.User2 == user.UserName).Count() != 0)
+                if(image.User.Friends.Where(f => f.User1 == user.UserName).Count() != 0)
                 {
                     return MapToCore(image);
                 }
