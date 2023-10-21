@@ -5,7 +5,7 @@ using System.Reflection.Metadata;
 namespace PicturesTask.Features.Images
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/user/[controller]")]
     public class ImagesController : ControllerBase
     {
         public readonly IMediator _mediator;
@@ -16,9 +16,11 @@ namespace PicturesTask.Features.Images
         }
 
         [HttpGet("get/{id}")]
-        public async Task<CoreImage> GetImage([FromRoute]Guid id, string userName)
+        public async Task<IActionResult> GetImage([FromRoute]Guid id, string userName)
         {
-            return await _mediator.Send(new GetImage.Command(id, userName));
+            var image = await _mediator.Send(new GetImage.Command(id, userName));
+
+            return File(image, "image/jpeg");
         }
 
         [HttpPost("create")]

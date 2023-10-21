@@ -49,7 +49,7 @@ namespace PicturesTask.Infrastructure.Repositories
             await Save(dbImage, EntityState.Added);
         }
 
-        public async Task<CoreImage> Get(string id, string userName)
+        public async Task<byte[]> Get(string id, string userName)
         {
             var image = await _usersContext.Images
                 .Include(i => i.User)
@@ -63,15 +63,17 @@ namespace PicturesTask.Infrastructure.Repositories
 
             var isOwner = user == image.User;
 
-            if(isOwner)
+            var imageFile = await File.ReadAllBytesAsync(image.Path);
+
+            if (isOwner)
             {
-                return MapToCore<EntityImage>(image);
+                return imageFile;
             }
             else
             {
                 if(image.User.Friends.Where(f => f.User1 == user.UserName).Count() != 0)
                 {
-                    return MapToCore(image);
+                    return imageFile;
                 }
                 else
                 {

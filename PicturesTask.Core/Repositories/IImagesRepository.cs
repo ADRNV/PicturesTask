@@ -6,6 +6,6 @@ namespace PicturesTask.Core.Repositories
     {
         public Task<Guid> Create(string userName, MemoryStream imageFile);
 
-        public Task<Image> Get(string id, string userName);
+        public Task<byte[]> Get(string id, string userName);
     }
 }

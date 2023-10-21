@@ -6,9 +6,9 @@ namespace PicturesTask.Features.Images
 {
     public class GetImage
     {
-        public record Command(Guid Id, string UserName) : IRequest<CoreImage>;
+        public record Command(Guid Id, string UserName) : IRequest<byte[]>;
 
-        public class Handler : IRequestHandler<Command, CoreImage>
+        public class Handler : IRequestHandler<Command, byte[]>
         {
             private readonly IImagesRepository _imagesRepository;
 
@@ -17,7 +17,7 @@ namespace PicturesTask.Features.Images
                 _imagesRepository = imagesRepository;
             }
 
-            public async Task<CoreImage> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<byte[]> Handle(Command request, CancellationToken cancellationToken)
             {
                 try
                 {
