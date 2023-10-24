@@ -21,14 +21,14 @@ namespace PicturesTask.Infrastructure.Entities.Cofiguration
                     Id = Guid.NewGuid().ToString(),
                     UserName = "User",
                     NormalizedUserName = "USER",
-                    PasswordHash = "AQAAAAIAAYagAAAAEJnbSpz4UNKDnq+KMzOiivLwPovhKV3SwHz8w95dQwvQWKbmo5yZa4NKTSpf8U6Muw=="
+                    PasswordHash = "AQAAAAIAAYagAAAAEJnbSpz4UNKDnq+KMzOiivLwPovhKV3SwHz8w95dQwvQWKbmo5yZa4NKTSpf8U6Muw=="//string
                 },
                 new EntityUser
                 {
                     Id = Guid.NewGuid().ToString(),
                     UserName = "User2",
                     NormalizedUserName = "USER2",
-                    PasswordHash = "AQAAAAIAAYagAAAAEJnbSpz4UNKDnq+KMzOiivLwPovhKV3SwHz8w95dQwvQWKbmo5yZa4NKTSpf8U6Muw=="
+                    PasswordHash = "AQAAAAIAAYagAAAAEJnbSpz4UNKDnq+KMzOiivLwPovhKV3SwHz8w95dQwvQWKbmo5yZa4NKTSpf8U6Muw=="//string
                 });
         }
     }
